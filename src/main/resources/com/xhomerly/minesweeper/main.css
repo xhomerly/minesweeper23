@@ -1,0 +1,37 @@
+.body {
+    -fx-background-color: #333;
+}
+
+.grid {
+    -fx-border-color: black;
+}
+
+.button {
+    -fx-padding: 0;
+    -fx-margin: 0;
+    -fx-border-color: black;
+    -fx-cursor: hand;
+    -fx-background-color: #cfcfcf;
+}
+
+.digitalNumBox {
+    -fx-background-color: #cfcfcf;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+    -fx-font-family: 'Micro 5';
+}
+
+.numberOfMines {
+    -fx-font-family: 'Micro 5';
+    -fx-font-size: 32;
+}
+
+.zero { -fx-text-fill: grey; }
+.one { -fx-text-fill: blue; }
+.two { -fx-text-fill: green; }
+.three { -fx-text-fill: #ffa500; }
+.four { -fx-text-fill: indigo; }
+.five { -fx-text-fill: #ff0090; }
+.six { -fx-text-fill: #bf59bf; }
+.seven { -fx-text-fill: yellow; }
+.eight { -fx-text-fill: #663cfb; }

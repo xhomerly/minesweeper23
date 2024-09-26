@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="530.0" styleClass="body" stylesheets="@main.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.xhomerly.minesweeper.Controller">
+  <HBox alignment="CENTER" prefHeight="167.0" prefWidth="496.0" style="-fx-spacing: 100;">
+    <HBox alignment="CENTER" style="-fx-spacing: 5;">
+      <Label style="-fx-text-fill: white;" text="Time:">
+        <font>
+          <Font name="Calibri" size="20.0" />
+        </font>
+      </Label>
+      <Label fx:id="timeBox" alignment="CENTER" prefHeight="41.0" prefWidth="69.0" styleClass="digitalNumBox" stylesheets="@main.css" text="0">
+        <font>
+          <Font name="Calibri" size="20.0" />
+        </font>
+      </Label>
+    </HBox>
+    <HBox alignment="CENTER" style="-fx-spacing: 5;">
+      <Label style="-fx-text-fill: white;" text="Remaining mines:">
+        <font>
+          <Font name="Calibri" size="20.0" />
+        </font>
+      </Label>
+      <Label fx:id="mineBox" alignment="CENTER" prefHeight="41.0" prefWidth="69.0" styleClass="digitalNumBox" stylesheets="@main.css">
+        <font>
+          <Font name="Calibri" size="20.0" />
+        </font>
+      </Label>
+    </HBox>
+  </HBox>
+  <StackPane>
+    <VBox.margin>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </VBox.margin>
+    <children>
+      <GridPane fx:id="grid" prefHeight="498.0" prefWidth="549.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <styleClass>
+          <String fx:value="grid" />
+          <String fx:value="digitalNumBox" />
+        </styleClass>
+      </GridPane>
+      <AnchorPane fx:id="endDialog" prefHeight="200.0" prefWidth="200.0" visible="false">
+        <children>
+          <AnchorPane layoutX="17.0" layoutY="135.0" prefHeight="123.0" prefWidth="456.0" style="-fx-background-color: #333;">
+            <children>
+              <Button fx:id="exitGameButton" layoutX="270.0" layoutY="76.0" mnemonicParsing="false" onMouseClicked="#exitApp" prefHeight="41.0" prefWidth="120.0" text="Exit Game" />
+              <Button fx:id="restartButton" layoutX="66.0" layoutY="76.0" mnemonicParsing="false" onMouseClicked="#restartGame" prefHeight="41.0" prefWidth="120.0" text="Restart" />
+              <Label fx:id="endLabel" alignment="CENTER" prefHeight="53.0" prefWidth="456.0" textAlignment="CENTER" textFill="WHITE">
+                <font>
+                  <Font size="25.0" />
+                </font>
+              </Label>
+            </children>
+          </AnchorPane>
+        </children>
+      </AnchorPane>
+    </children>
+  </StackPane>
+</VBox>
