@@ -8,13 +8,16 @@ public class Cell {
     private boolean isFlagged = false;
     private boolean isUncovered = false;
 
-    public Cell(boolean hasMine, Button cellButton) {
-        this.hasMine = hasMine;
+    public Cell(Button cellButton) {
         this.cellButton = cellButton;
     }
 
     public boolean hasMine() {
         return hasMine;
+    }
+
+    public void setMine(boolean hasMine) {
+        this.hasMine = hasMine;
     }
 
     public Button getCellButton() {

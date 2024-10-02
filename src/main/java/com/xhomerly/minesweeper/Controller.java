@@ -13,10 +13,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.util.Duration;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Controller {
     @FXML private GridPane grid; // The grid for placing cells
@@ -27,10 +30,13 @@ public class Controller {
 
     private boolean hasGameStarted = false;
     private int time = 0;
-    private byte mineCount = 0;
     private boolean gameOver = false;
 
-    public Cell[][] cellArray = new Cell[10][10];
+    private final byte gridSIZE = 5;
+    private final byte mineCount = 2;
+    private byte mineCounter = mineCount;
+
+    public Cell[][] cellArray = new Cell[gridSIZE][gridSIZE];
 
     public Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<>() {
         @Override
@@ -41,15 +47,21 @@ public class Controller {
     }));
 
     public void initialize() {
+        for (byte i = 0; i < gridSIZE; i++) {
+            ColumnConstraints colConst = new ColumnConstraints();
+            colConst.setPrefWidth(100);
+            grid.getColumnConstraints().add(colConst);
+            RowConstraints rowConst = new RowConstraints();
+            rowConst.setPrefHeight(100);
+            grid.getRowConstraints().add(rowConst);
+        }
+
         for (byte x = 0; x < grid.getRowCount(); x++) {
             for (byte y = 0; y < grid.getColumnCount(); y++) {
-                byte random = (Math.random() > 0.125) ? (byte) 0 : (byte) 1; // Randomly assign mines (12.5% probability)
-                boolean hasMine = random == 1;
-                if (hasMine) mineCount++;
                 Button button = new Button();
                 button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                 button.getStyleClass().add("button");
-                cellArray[x][y] = new Cell(hasMine, button);
+                cellArray[x][y] = new Cell(button);
                 grid.add(button, x, y);
 
                 // Store x and y for the mouse click handler
@@ -86,6 +98,8 @@ public class Controller {
             }
         }
 
+        setMines();
+
         mineBox.setText("" + mineCount);
     }
 
@@ -104,7 +118,7 @@ public class Controller {
                 byte neighborY = (byte) (y + col);
 
                 // Ensure neighbors are within bounds and aren't the current cell
-                if (neighborX >= 0 && neighborY >= 0 && neighborX <= 9 && neighborY <= 9) {
+                if (neighborX >= 0 && neighborY >= 0 && neighborX <= gridSIZE-1 && neighborY <= gridSIZE-1) {
                     if (neighborX != x || neighborY != y) {
                         if (cellArray[neighborX][neighborY].hasMine()) {
                             mineCount++;
@@ -141,8 +155,8 @@ public class Controller {
         if (isFlagged) {
             cellArray[x][y].getCellButton().setGraphic(null);
             cellArray[x][y].setFlagged(false);
-            mineCount++;
-            mineBox.setText("" + mineCount);
+            mineCounter++;
+            mineBox.setText("" + mineCounter);
         } else {
             ImageView flag = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("flag.png"))));
             flag.setPreserveRatio(true);
@@ -150,8 +164,8 @@ public class Controller {
             flag.setFitWidth(30);
             cellArray[x][y].getCellButton().setGraphic(flag);
             cellArray[x][y].setFlagged(true);
-            mineCount--;
-            mineBox.setText("" + mineCount);
+            mineCounter--;
+            mineBox.setText("" + mineCounter);
         }
     }
 
@@ -196,13 +210,16 @@ public class Controller {
     public void restartGame() {
         endDialog.setVisible(false);
 
+        grid.getColumnConstraints().clear();
+        grid.getRowConstraints().clear();
+
         hasGameStarted = false;
         time = 0;
-        mineCount = 0;
+        mineCounter = mineCount;
         gameOver = false;
         timeBox.setText("0");
 
-        cellArray = new Cell[10][10];
+        cellArray = new Cell[gridSIZE][gridSIZE];
 
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<>() {
             @Override
@@ -227,5 +244,20 @@ public class Controller {
             }
         }
         return true;
+    }
+
+    public void setMines() {
+        Random random = new Random();
+        byte minesPlaced = 0;
+
+        while (minesPlaced < mineCount) {
+            byte randomX = (byte) random.nextInt(gridSIZE);
+            byte randomY = (byte) random.nextInt(gridSIZE);
+
+            if (!cellArray[randomX][randomY].hasMine()) {
+                cellArray[randomX][randomY].setMine(true);
+                minesPlaced++;
+            }
+        }
     }
 }
